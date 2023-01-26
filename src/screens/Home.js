@@ -7,8 +7,16 @@ import axios from 'axios';
 function Home() {
 
   const [City, setCity] = useState("")
+  const [weather, setWeather] = useState({})
   const getWeather = ()=>{
-    console.log(City);
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=3d5ab8472b7d63620803d4235cfe14a2`).then((response)=>{
+        console.log(response.data)
+        setWeather(response.data)
+    }).catch((error)=> {
+        alert("City not exist")
+        console.log(error)
+    })
+
   }
 
   return (
@@ -19,7 +27,7 @@ function Home() {
 
           <TextInput 
             style={styles.textInput}
-            placeholder={"enter xx City"}
+            placeholder={"Enter Your City Name"}
             onChangeText={(text)=>setCity(text)}
           />
 
@@ -61,5 +69,6 @@ const styles = StyleSheet.create({
     width: "80%",
     fontWeight:"600",
     fontSize: 18,
+    color: "black",
   }
-})
+}) 
